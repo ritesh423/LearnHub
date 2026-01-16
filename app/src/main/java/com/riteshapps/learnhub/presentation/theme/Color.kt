@@ -1,4 +1,4 @@
-package com.riteshapps.learnhub.ui.theme
+package com.riteshapps.learnhub.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

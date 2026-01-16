@@ -1,4 +1,4 @@
-package com.riteshapps.learnhub.ui.theme
+package com.riteshapps.learnhub.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
