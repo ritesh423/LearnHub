@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.text.TextStyle
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -33,6 +34,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.riteshapps.learnhub.presentation.auth.AuthViewModel
+import com.riteshapps.learnhub.presentation.auth.LoginScreen
+import com.riteshapps.learnhub.presentation.home.HomeScreen
+import com.riteshapps.learnhub.presentation.settings.SettingsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -126,12 +131,15 @@ fun NavGraph() {
         ) {
 
             composable(Routes.Login.route) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Text(
-                        "Login Screen",
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                }
+                val viewModel: AuthViewModel = hiltViewModel()
+                LoginScreen(
+                    viewModel = viewModel,
+                    onLoginSuccess = {
+                        navController.navigate(Routes.Home.route) {
+                            popUpTo(Routes.Login.route) { inclusive = true }
+                        }
+                    }
+                )
             }
 
             composable(Routes.Register.route) {
@@ -139,11 +147,11 @@ fun NavGraph() {
             }
 
             composable(Routes.Home.route) {
-                Text("Home Screen", modifier = Modifier.fillMaxSize())
+                HomeScreen()
             }
 
             composable(Routes.Settings.route) {
-                Text("Settings Screen", modifier = Modifier.fillMaxSize())
+                SettingsScreen()
             }
 
             composable(Routes.Detail.route) {
